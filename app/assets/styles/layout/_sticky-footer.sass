@@ -1,0 +1,24 @@
+$sticky-footer-height: 200px !default
+$sticky-footer-margin-top: 30px !default
+
+html
+  position: relative
+  min-height: 100%
+
+body
+  margin-bottom: $sticky-footer-height + $sticky-footer-margin-top
+
+.sticky-footer
+  position: absolute
+  bottom: 0
+  width: 100%
+  height: $sticky-footer-height
+
++on-mobile
+  body
+    margin-bottom: 0
+
+  .sticky-footer
+    position: relative
+    height: auto
+    margin-top: $sticky-footer-margin-top
