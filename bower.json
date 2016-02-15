@@ -1,19 +1,7 @@
 {
   "name": "kontur_selection",
-  "description": "",
-  "main": "",
-  "authors": [
-    "Nikolay Troshkov <ariser@ariser.ru>"
-  ],
-  "license": "MIT",
-  "homepage": "https://github.com/ariser/kontur_selection",
-  "moduleType": [],
-  "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+  "dependencies": {
+    "underscore": "^1.8.3"
+  },
+  "private": true
 }
