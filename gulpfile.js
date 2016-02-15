@@ -12,7 +12,6 @@ var gulp           = require('gulp'),
     debug          = require('gulp-debug'),
 
     sass           = require('gulp-ruby-sass'),
-    less           = require('gulp-less'),
     coffee         = require('gulp-coffee'),
     prefix         = require('gulp-autoprefixer'),
     sourcemaps     = require('gulp-sourcemaps'),
@@ -27,7 +26,7 @@ var config = {
 		interlaced : true
 	},
 	htmlmin : {
-		conditionals: true
+		collapseWhitespace: true
 	},
 	paths   : {
 		bower: 'bower_components',
@@ -164,7 +163,7 @@ gulp.task('views:clean', function (next) {
 	del(config.paths.build.views + '/**', next);
 });
 gulp.task('views:dev', function () {
-	return gulp.src(config.paths.app.views + '/**/*.php')
+	return gulp.src(config.paths.app.views + '/**/*.html')
 		.pipe(gulp.dest(config.paths.build.views));
 });
 gulp.task('views:production', function () {
@@ -174,9 +173,9 @@ gulp.task('views:production', function () {
 
 	var jsFilter = gulpFilter('**/*.js');
 	var cssFilter = gulpFilter('**/*.css');
-	var phpFilter = gulpFilter('**/*.php');
+	var htmlFilter = gulpFilter('**/*.html');
 
-	return gulp.src(config.paths.app.views + '/**/*.php')
+	return gulp.src(config.paths.app.views + '/**/*.html')
 		.pipe(assets)
 
 		.pipe(jsFilter)
@@ -192,12 +191,12 @@ gulp.task('views:production', function () {
 		.pipe(assets.restore())
 		.pipe(useref())
 
-		.pipe(phpFilter) // don't copy assets to the views dest
+		.pipe(htmlFilter) // don't copy assets to the views dest
 		.pipe(gulp.dest(config.paths.build.views))
-		.pipe(phpFilter.restore());
+		.pipe(htmlFilter.restore());
 });
 gulp.task('views:min', function () {
-	return gulp.src(config.paths.build.views + '/**/*.php')
+	return gulp.src(config.paths.build.views + '/**/*.html')
 		.pipe(htmlmin(config.htmlmin))
 		.pipe(gulp.dest(config.paths.build.views));
 });
@@ -220,10 +219,9 @@ gulp.task('revision:assets', function () {
 gulp.task('revision:views', ['revision:assets'], function () {
 	var manifest = gulp.src(config.paths.build.assets + '/rev-manifest.json');
 
-	return gulp.src(config.paths.build.views + '/**/*.php')
+	return gulp.src(config.paths.build.views + '/**/*.html')
 		.pipe(revReplace({
-			manifest           : manifest,
-			replaceInExtensions: ['.php']
+			manifest: manifest
 		}))
 		.pipe(gulp.dest(config.paths.build.views));
 });
