@@ -1,0 +1,30 @@
+$buttons: (
+		default: (
+				bg-from: #ebebeb,
+				bg-to: #fefefe,
+				border-color: #d9d9d9,
+				border-dark-color: #b2b2b2
+		),
+		bright: (
+				bg-from: #37910b,
+				bg-to: #4ba91d,
+				border-color: #5e9450,
+				border-dark-color: #457339,
+				text-color: $color-inverse
+		)
+);
+
+$buttons_sizes: (
+		small: (
+				height: 30px,
+				padding: 15px
+		),
+		medium: (
+				height: 36px,
+				padding: 20px
+		),
+		big: (
+				height: 40px,
+				padding: 20px
+		)
+);

@@ -1,0 +1,67 @@
+.btn
+	box-sizing: border-box
+	display: inline-block
+
+	height: map-get(map-get($buttons_sizes, 'medium'), 'height')
+	line-height: map-get(map-get($buttons_sizes, 'medium'), 'height')
+	padding: 0 map-get(map-get($buttons_sizes, 'medium'), 'padding')
+	border: 1px solid
+
+	border-radius: 3px
+	outline: none
+	text-decoration: none
+	vertical-align: middle
+
+	&:focus
+		border-color: $color-accent
+		box-shadow: inset 0 0 0 1px white, 0 0 0 1px $color-accent
+
+	&:active
+		box-shadow: inset 0 2px 1px -1px rgba(0, 0, 0, 0.15)
+
+	&.disabled,
+	&:disabled
+		background:
+			color: #f2f2f2
+			image: none
+		border-color: rgba(0, 0, 0, .15)
+		color: grey
+
+@each $button, $prop in $buttons
+	$bg-from: map-get($prop, 'bg-from')
+	$bg-to: map-get($prop, 'bg-to')
+	$border-color: map-get($prop, 'border-color')
+	$border-dark-color: map-get($prop, 'border-dark-color')
+	$text: $color-text
+	@if (map-has-key($prop, 'text-color'))
+		$text: map-get($prop, 'text-color')
+
+	.btn_#{$button}
+		$height: map-get(map-get($buttons_sizes, 'medium'), 'height')
+		$padding: map-get(map-get($buttons_sizes, 'medium'), 'padding')
+
+		+button-variant($bg-from, $bg-to, $border-color, $border-dark-color, $text)
+
+		&.btn_right-arr
+			+button-arrow-size(right, $height, $padding)
+			+button-arrow-variant(right, $bg-from, $bg-to, $border-color, $border-dark-color)
+
+		&.btn_left-arr
+			+button-arrow-size(left, $height, $padding)
+			+button-arrow-variant(left, $bg-from, $bg-to, $border-color, $border-dark-color)
+
+@each $size, $values in $buttons_sizes
+	$height: map-get($values, 'height')
+	$padding: map-get($values, 'padding')
+
+	.btn_#{$size}
+		height: $height
+		padding:
+			left: $padding
+			right: $padding
+
+		&.btn_right-arr
+			+button-arrow-size(right, $height, $padding)
+
+		&.btn_left-arr
+			+button-arrow-size(left, $height, $padding)

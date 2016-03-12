@@ -1,0 +1,115 @@
+=button-arrow-variant($dir, $bg-from, $bg-to, $border-color, $border-dark-color)
+	position: relative
+
+	&:before,
+	&:after
+		content: ''
+
+		position: absolute
+
+		@if ($dir == left)
+			right: 100%
+			border-left: 1px solid $border-color
+		@else
+			left: 100%
+			border-right: 1px solid $border-color
+
+	&:before
+		top: 0
+
+		background-image: linear-gradient(to top, $bg-from -100%, $bg-to 100%)
+
+		@if ($dir == left)
+			transform: skewX(-30deg)
+		@else
+			transform: skewX(30deg)
+
+	&:after
+		bottom: 0
+
+		background-image: linear-gradient(to top, $bg-from 0%, $bg-to 200%)
+
+		@if ($dir == left)
+			transform: skewX(30deg)
+		@else
+			transform: skewX(-30deg)
+
+	&:hover
+		&:before
+			background-image: linear-gradient(to top, darken($bg-from, 5%) -100%, darken($bg-to, 5%) 100%)
+
+		&:after
+			background-image: linear-gradient(to top, darken($bg-from, 5%) 0%, darken($bg-to, 5%) 200%)
+
+	&:focus
+		&:before,
+		&:after
+			border-color: $color-accent
+
+		&:before
+			@if ($dir == left)
+				box-shadow: inset 1px 1px 0 0 white, -1px -1px 0 0 $color-accent
+			@else
+				box-shadow: inset -1px 1px 0 0 white, 1px -1px 0 0 $color-accent
+
+		&:after
+			@if ($dir == left)
+				box-shadow: inset 1px -1px 0 0 white, -1px 1px 0 0 $color-accent
+			@else
+				box-shadow: inset -1px -1px 0 0 white, 1px 1px 0 0 $color-accent
+
+	&:active
+		&:before,
+		&:after
+			border-color: darken($border-color, 5%)
+			background: darken($bg-from, 7%)
+			box-shadow: none
+
+		&:before
+			@if ($dir == left)
+				box-shadow: inset 1px 2px 1px -1px rgba(0, 0, 0, 0.15)
+			@else
+				box-shadow: inset -1px 2px 1px -1px rgba(0, 0, 0, 0.15)
+
+	&.disabled,
+	&:disabled
+		&:before,
+		&:after
+			background: #f2f2f2
+
+=button-arrow-size($dir, $height, $padding: none)
+	$half-height: ($height - 2) / 2 // minus borders, for rounded corners
+
+	// arrow angles at the base are 30deg.
+	// Therefore arrow height is twice as big as its sides length.
+	// no magic numbers, simple math
+	$width: $half-height / 1.732050808 // sqrt(3)
+
+	@if ($padding != none)
+		padding-#{$dir}: $padding - $width / 2
+		margin-#{$dir}: $width / 2
+
+	&:before,
+	&:after
+		@if ($dir == left)
+			margin-right: -$width / 2 - 2 // hide inner shadow of button:focus
+		@else
+			margin-left: -$width / 2 - 2 // hide inner shadow of button:focus
+
+		height: $half-height
+		width: $width + 2 // compensate margin shift
+
+=button-variant($bg-from, $bg-to, $border-color, $border-dark-color, $text: $color-text)
+	border-color: $border-color $border-color $border-dark-color
+
+	background: white linear-gradient(to top, $bg-from 0%, $bg-to 100%)
+	color: $text
+
+	&:hover
+		background-image: linear-gradient(to top, darken($bg-from, 5%) 0%, darken($bg-to, 5%) 100%)
+
+	&:active
+		border:
+			color: darken($border-color, 5%)
+			top-color: darken($border-dark-color, 5%)
+		background: darken($bg-from, 7%)
