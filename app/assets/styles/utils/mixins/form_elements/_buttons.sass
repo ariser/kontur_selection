@@ -1,5 +1,7 @@
+$border-color-mix-amount: 40%
+
 =button-arrow-variant($dir, $bg-from, $bg-to)
-	$border-color: mix(black, $bg-from, 40%)
+	$border-color: mix(black, $bg-from, $border-color-mix-amount)
 	$border-color-rgba: rgba($border-color, .5)
 
 	position: relative
@@ -39,16 +41,12 @@
 
 	&:hover
 		&:before
-			background-image: linear-gradient(to top, darken($bg-from, 5%) -100%, darken($bg-to, 5%) 100%)
+			background-image: linear-gradient(to top, hover($bg-from) -100%, hover($bg-to) 100%)
 
 		&:after
-			background-image: linear-gradient(to top, darken($bg-from, 5%) 0%, darken($bg-to, 5%) 200%)
+			background-image: linear-gradient(to top, hover($bg-from) 0%, hover($bg-to) 200%)
 
 	&:focus
-		&:before,
-		&:after
-			//border-color: $color-accent
-
 		&:before
 			@if ($dir == left)
 				box-shadow: inset 1px 1px white, -2px 0 $color-accent
@@ -64,7 +62,7 @@
 	&:active
 		&:before,
 		&:after
-			background: darken($bg-from, 7%)
+			background: active($bg-from)
 
 		&:before
 			@if ($dir == left)
@@ -107,15 +105,15 @@
 		width: $width + 1 // compensate margin shift
 
 =button-variant($bg-from, $bg-to, $text: $color-text)
-	$border-color: mix(black, $bg-from, 40%)
+	$border-color: mix(black, $bg-from, $border-color-mix-amount)
 
 	background: white linear-gradient(to top, $bg-from 0%, $bg-to 100%)
 	box-shadow: 0 0 0 1px rgba($border-color, .5), 0 1px rgba($border-color, .9)
 	color: $text
 
 	&:hover
-		background-image: linear-gradient(to top, darken($bg-from, 5%) 0%, darken($bg-to, 5%) 100%)
+		background-image: linear-gradient(to top, hover($bg-from) 0%, hover($bg-to) 100%)
 
 	&:active
-		background: darken($bg-from, 7%)
+		background: active($bg-from)
 		box-shadow: 0 0 0 1px rgba($border-color, .5), 0 -1px rgba($border-color, .9), inset 0 2px 1px -1px rgba(0, 0, 0, 0.15)
