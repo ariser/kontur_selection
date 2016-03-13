@@ -1,6 +1,6 @@
 @import compass/css3
 
-+font-face("kontur-icons", font-files("icons.ttf"))
++font-face("kontur-icons", font-files("icons.ttf", "icons.svg"))
 
 [class^="icon-"],
 [class*=" icon-"]
@@ -20,4 +20,13 @@
 		text-decoration: none
 
 .icon-plus:before
-	content: ''
+	content: '\e00d'
+
+.icon-minus:before
+	content: '\e01e'
+
+.icon-revert:before
+	content: '\e012'
+
+.icon-swap:before
+	content: '\e01f'
