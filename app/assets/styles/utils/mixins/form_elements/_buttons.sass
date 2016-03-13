@@ -1,4 +1,7 @@
-=button-arrow-variant($dir, $bg-from, $bg-to, $border-color, $border-dark-color)
+=button-arrow-variant($dir, $bg-from, $bg-to)
+	$border-color: mix(black, $bg-from, 40%)
+	$border-color-rgba: rgba($border-color, .5)
+
 	position: relative
 
 	&:before,
@@ -9,10 +12,10 @@
 
 		@if ($dir == left)
 			right: 100%
-			border-left: 1px solid $border-color
+			box-shadow: -1px 0 $border-color-rgba
 		@else
 			left: 100%
-			border-right: 1px solid $border-color
+			box-shadow: 1px 0 $border-color-rgba
 
 	&:before
 		top: 0
@@ -44,32 +47,36 @@
 	&:focus
 		&:before,
 		&:after
-			border-color: $color-accent
+			//border-color: $color-accent
 
 		&:before
 			@if ($dir == left)
-				box-shadow: inset 1px 1px 0 0 white, -1px -1px 0 0 $color-accent
+				box-shadow: inset 1px 1px white, -2px 0 $color-accent
 			@else
-				box-shadow: inset -1px 1px 0 0 white, 1px -1px 0 0 $color-accent
+				box-shadow: inset -1px 1px white, 2px 0 $color-accent
 
 		&:after
 			@if ($dir == left)
-				box-shadow: inset 1px -1px 0 0 white, -1px 1px 0 0 $color-accent
+				box-shadow: inset 1px -1px white, -2px 0 $color-accent
 			@else
-				box-shadow: inset -1px -1px 0 0 white, 1px 1px 0 0 $color-accent
+				box-shadow: inset -1px -1px white, 2px 0 $color-accent
 
 	&:active
 		&:before,
 		&:after
-			border-color: darken($border-color, 5%)
 			background: darken($bg-from, 7%)
-			box-shadow: none
 
 		&:before
 			@if ($dir == left)
-				box-shadow: inset 1px 2px 1px -1px rgba(0, 0, 0, 0.15)
+				box-shadow: -1px 0 $border-color-rgba, inset 1px 2px 1px -1px rgba(0, 0, 0, 0.15)
 			@else
-				box-shadow: inset -1px 2px 1px -1px rgba(0, 0, 0, 0.15)
+				box-shadow: 1px 0 $border-color-rgba, inset -1px 2px 1px -1px rgba(0, 0, 0, 0.15)
+
+		&:after
+			@if ($dir == left)
+				box-shadow: -1px 0 $border-color-rgba
+			@else
+				box-shadow: 1px 0 $border-color-rgba
 
 	&.disabled,
 	&:disabled
@@ -78,7 +85,7 @@
 			background: #f2f2f2
 
 =button-arrow-size($dir, $height, $padding: none)
-	$half-height: ($height - 2) / 2 // minus borders, for rounded corners
+	$half-height: $height / 2
 
 	// arrow angles at the base are 30deg.
 	// Therefore arrow height is twice as big as its sides length.
@@ -92,24 +99,23 @@
 	&:before,
 	&:after
 		@if ($dir == left)
-			margin-right: -$width / 2 - 2 // hide inner shadow of button:focus
+			margin-right: -$width / 2 - 1 // hide inner shadow of button:focus
 		@else
-			margin-left: -$width / 2 - 2 // hide inner shadow of button:focus
+			margin-left: -$width / 2 - 1 // hide inner shadow of button:focus
 
 		height: $half-height
-		width: $width + 2 // compensate margin shift
+		width: $width + 1 // compensate margin shift
 
-=button-variant($bg-from, $bg-to, $border-color, $border-dark-color, $text: $color-text)
-	border-color: $border-color $border-color $border-dark-color
+=button-variant($bg-from, $bg-to, $text: $color-text)
+	$border-color: mix(black, $bg-from, 40%)
 
 	background: white linear-gradient(to top, $bg-from 0%, $bg-to 100%)
+	box-shadow: 0 0 0 1px rgba($border-color, .5), 0 1px rgba($border-color, .9)
 	color: $text
 
 	&:hover
 		background-image: linear-gradient(to top, darken($bg-from, 5%) 0%, darken($bg-to, 5%) 100%)
 
 	&:active
-		border:
-			color: darken($border-color, 5%)
-			top-color: darken($border-dark-color, 5%)
 		background: darken($bg-from, 7%)
+		box-shadow: 0 0 0 1px rgba($border-color, .5), 0 -1px rgba($border-color, .9), inset 0 2px 1px -1px rgba(0, 0, 0, 0.15)

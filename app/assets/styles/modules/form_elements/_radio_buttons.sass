@@ -1,5 +1,13 @@
+%radio-hover
+	background-image: linear-gradient(to top, darken(#ebebeb, 5%) 0%, darken(#ebebeb, 5%) 100%)
+
+%radio-active
+	background: darken(#ebebeb, 7%)
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, .15), 0 -1px rgba(0, 0, 0, .3), inset 0 2px 1px -1px rgba(0, 0, 0, 0.15)
+
 .radio
 	$radio-size: 16px
+	$shadow-border-width: 1px
 	$checked-dot-size: 8px
 	$padding-left: $radio-size + 7px
 	$vertical-align-shift: 1px
@@ -8,25 +16,33 @@
 
 	padding-left: $padding-left
 
-	.radio__label
+	&_inline
+		display: inline-block
+		margin-right: 1.2em
 
+	.radio__label
 		&:before
 			content: ''
 
 			position: absolute
 			left: 0
 			top: 50%
-			margin: (-$radio-size / 2 - $vertical-align-shift) 0 0
 
 			display: block
 
-			width: $radio-size
-			height: $radio-size
-			border: 1px solid
-				color: #d9d9d9 #d9d9d9 #b2b2b2
+			width: $radio-size - $shadow-border-width * 2
+			height: $radio-size - $shadow-border-width * 2
+			margin: (-($radio-size - $shadow-border-width * 2) / 2 - $vertical-align-shift) $shadow-border-width $shadow-border-width
 
 			background: white linear-gradient(to top, #ebebeb 0%, #fefefe 100%)
-			border-radius: $radio-size / 2
+			border-radius: ($radio-size - $shadow-border-width * 2) / 2
+			box-shadow: 0 0 0 1px rgba(0, 0, 0, .15), 0 1px rgba(0, 0, 0, .3)
+
+		&:hover:before
+			@extend %radio-hover
+
+		&:active:before
+			@extend %radio-active
 
 	input[type='radio']
 		+opacity(0)
@@ -38,40 +54,33 @@
 		width: $radio-size
 		height: $radio-size
 
+		&:checked + .radio__label:after
+			content: ''
+
+			position: absolute
+			left: 0
+			top: 50%
+			margin:
+				top: -$checked-dot-size / 2 - $vertical-align-shift
+				left: ($radio-size - $checked-dot-size) / 2
+
+			display: block
+
+			width: $checked-dot-size
+			height: $checked-dot-size
+
+			background-color: $color-text
+			border-radius: $checked-dot-size / 2
+
 		&:hover + .radio__label:before
-			background-image: linear-gradient(to top, darken(#ebebeb, 5%) 0%, darken(#ebebeb, 5%) 100%)
+			@extend %radio-hover
 
-		&:checked + .radio__label
-			&:before
-				background: darken(#ebebeb, 7%)
-				border-color: darken(#d9d9d9, 5%)
-				box-shadow: inset 0 2px 1px -1px rgba(0, 0, 0, 0.15)
-
-			&:after
-				content: ''
-
-				position: absolute
-				left: 0
-				top: 50%
-				margin:
-					top: -$checked-dot-size / 2 - $vertical-align-shift
-					left: ($radio-size - $checked-dot-size) / 2
-
-				display: block
-
-				width: $checked-dot-size
-				height: $checked-dot-size
-
-				background-color: $color-text
-				border-radius: $checked-dot-size / 2
+		&:active + .radio__label:before
+			@extend %radio-active
 
 		&:focus + .radio__label:before
-			border-color: $color-accent
-			box-shadow: inset 0 0 0 1px white, 0 0 0 1px $color-accent
-
-		&:focus:checked + .radio__label:before
-			box-shadow: inset 0 2px 1px -1px rgba(0, 0, 0, 0.15), inset 0 0 0 1px white, 0 0 0 1px $color-accent
+			box-shadow: inset 0 0 0 1px white, 0 0 0 2px $color-accent
 
 		&:disabled + .radio__label:before
 			background-color: #f2f2f2
-			border-color: rgba(0, 0, 0, 0.15)
+			box-shadow: 0 0 0 1px rgba(0, 0, 0, .15)

@@ -4,33 +4,27 @@
 	height: map-get(map-get($buttons_sizes, 'medium'), 'height')
 	line-height: map-get(map-get($buttons_sizes, 'medium'), 'height')
 	padding: 0 map-get(map-get($buttons_sizes, 'medium'), 'padding')
-	border: 1px solid
+	border: none
 
-	border-radius: 3px
+	border-radius: 2px
 	outline: none
 	text-decoration: none
-	vertical-align: middle
+	vertical-align: baseline
 
 	&:focus
-		border-color: $color-accent
-		box-shadow: inset 0 0 0 1px white, 0 0 0 1px $color-accent
-
-	&:active
-		box-shadow: inset 0 2px 1px -1px rgba(0, 0, 0, 0.15)
+		box-shadow: inset 0 0 0 1px white, 0 0 0 2px $color-accent
 
 	&.disabled,
 	&:disabled
 		background:
 			color: #f2f2f2
 			image: none
-		border-color: rgba(0, 0, 0, .15)
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, .15)
 		color: grey
 
 @each $button, $prop in $buttons
 	$bg-from: map-get($prop, 'bg-from')
 	$bg-to: map-get($prop, 'bg-to')
-	$border-color: map-get($prop, 'border-color')
-	$border-dark-color: map-get($prop, 'border-dark-color')
 	$text: $color-text
 	@if (map-has-key($prop, 'text-color'))
 		$text: map-get($prop, 'text-color')
@@ -39,25 +33,31 @@
 		$height: map-get(map-get($buttons_sizes, 'medium'), 'height')
 		$padding: map-get(map-get($buttons_sizes, 'medium'), 'padding')
 
-		+button-variant($bg-from, $bg-to, $border-color, $border-dark-color, $text)
+		+button-variant($bg-from, $bg-to, $text)
 
 		&.btn_right-arr
 			+button-arrow-size(right, $height, $padding)
-			+button-arrow-variant(right, $bg-from, $bg-to, $border-color, $border-dark-color)
+			+button-arrow-variant(right, $bg-from, $bg-to)
 
 		&.btn_left-arr
 			+button-arrow-size(left, $height, $padding)
-			+button-arrow-variant(left, $bg-from, $bg-to, $border-color, $border-dark-color)
+			+button-arrow-variant(left, $bg-from, $bg-to)
 
 @each $size, $values in $buttons_sizes
-	$height: map-get($values, 'height')
+	$height: map-get($values, 'height') - 2
 	$padding: map-get($values, 'padding')
+	$font-size: inherit
+	@if (map-has-key($values, 'font-size'))
+		$font-size: map-get($values, 'font-size')
 
 	.btn_#{$size}
 		height: $height
+		line-height: $height
 		padding:
 			left: $padding
 			right: $padding
+
+		font-size: $font-size
 
 		&.btn_right-arr
 			+button-arrow-size(right, $height, $padding)
