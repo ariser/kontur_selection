@@ -15,28 +15,35 @@
 
 			<div class="matrix-toolbar__section">
 				<div class="form-row">
-					<button type="button" class="btn btn_success btn_big btn_right-arr">
-						Умножить матрицы
-					</button>
+					<div class="form-col">
+						<button type="button" class="btn btn_success btn_big btn_right-arr">
+							Умножить матрицы
+						</button>
+					</div>
 				</div>
 			</div>
 
 			<div class="matrix-toolbar__section">
 				<div class="form-row">
-					<button type="button" class="btn btn_default btn_small">
-						<i class="icon-plus"></i>
-						Очистить матрицы
-					</button>
+					<div class="form-col">
+						<button type="button" class="btn btn_default btn_small">
+							<i class="icon-revert"></i>
+							Очистить матрицы
+						</button>
+					</div>
 				</div>
 				<div class="form-row">
-					<button type="button" class="btn btn_default btn_small">
-						<i class="icon-plus"></i>
-						Поменять матрицы местами
-					</button>
+					<div class="form-col">
+						<button type="button" class="btn btn_default btn_small">
+							<i class="icon-swap"></i>
+							Поменять матрицы местами
+						</button>
+					</div>
 				</div>
 			</div>
 
 			<div class="matrix-toolbar__section">
+
 				<div class="form-row">
 					<div class="form-col">
 						<div class="radio radio_inline">
@@ -53,6 +60,7 @@
 						</div>
 					</div>
 				</div>
+
 				<div class="form-row">
 					<div class="form-col">
 						<button type="button" class="btn btn_default btn_small">
@@ -62,7 +70,7 @@
 					</div>
 					<div class="form-col">
 						<button type="button" class="btn btn_default btn_small">
-							<i class="icon-plus"></i>
+							<i class="icon-minus"></i>
 							Удалить
 						</button>
 					</div>
@@ -72,6 +80,7 @@
 						</div>
 					</div>
 				</div>
+
 				<div class="form-row">
 					<div class="form-col">
 						<button type="button" class="btn btn_default btn_small">
@@ -81,7 +90,7 @@
 					</div>
 					<div class="form-col">
 						<button type="button" class="btn btn_default btn_small">
-							<i class="icon-plus"></i>
+							<i class="icon-minus"></i>
 							Удалить
 						</button>
 					</div>
@@ -91,12 +100,84 @@
 						</div>
 					</div>
 				</div>
+
+			</div>
+
+			<div class="matrix-toolbar__section">
+				<div class="matrix-toolbar__msg matrix-toolbar__msg_error">
+					Такие матрицы нельзя перемножать, так как количество столбцов матрицы A не равно количеству строку матрицы B.
+				</div>
 			</div>
 
 		</form>
 	</section>
 
-	<section class="matrix-calc__canvas"></section>
+	<section class="matrix-calc__canvas">
+
+		<div class="matrix">
+			<table class="matrix__grid">
+				<tr>
+					<td><input type="text" disabled placeholder="c1,1" class="input-field"></td>
+					<td><input type="text" disabled placeholder="c1,2" class="input-field"></td>
+					<td><input type="text" disabled placeholder="c1,3" class="input-field"></td>
+				</tr>
+				<tr>
+					<td><input type="text" disabled placeholder="c2,1" class="input-field"></td>
+					<td><input type="text" disabled placeholder="c2,2" class="input-field"></td>
+					<td><input type="text" disabled placeholder="c2,3" class="input-field"></td>
+				</tr>
+				<tr>
+					<td><input type="text" disabled placeholder="c3,1" class="input-field"></td>
+					<td><input type="text" disabled placeholder="c3,2" class="input-field"></td>
+					<td><input type="text" disabled placeholder="c3,3" class="input-field"></td>
+				</tr>
+				<tr>
+					<td><input type="text" disabled placeholder="c4,1" class="input-field"></td>
+					<td><input type="text" disabled placeholder="c4,2" class="input-field"></td>
+					<td><input type="text" disabled placeholder="c4,3" class="input-field"></td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="matrix">
+			<table class="matrix__grid">
+				<tr>
+					<td><input type="text" placeholder="a1,1" class="input-field"></td>
+					<td><input type="text" placeholder="a1,2" class="input-field"></td>
+				</tr>
+				<tr>
+					<td><input type="text" placeholder="a2,1" class="input-field"></td>
+					<td><input type="text" placeholder="a2,2" class="input-field"></td>
+				</tr>
+				<tr>
+					<td><input type="text" placeholder="a3,1" class="input-field"></td>
+					<td><input type="text" placeholder="a3,2" class="input-field"></td>
+				</tr>
+				<tr>
+					<td><input type="text" placeholder="a4,1" class="input-field"></td>
+					<td><input type="text" placeholder="a4,2" class="input-field"></td>
+				</tr>
+			</table>
+			<div class="matrix__label matrix__label_right">A</div>
+		</div>
+
+		<div class="matrix matrix_below">
+			<table class="matrix__grid">
+				<tr>
+					<td><input type="text" placeholder="b1,1" class="input-field"></td>
+					<td><input type="text" placeholder="b1,2" class="input-field"></td>
+					<td><input type="text" placeholder="b1,3" class="input-field"></td>
+				</tr>
+				<tr>
+					<td><input type="text" placeholder="b2,1" class="input-field"></td>
+					<td><input type="text" placeholder="b2,2" class="input-field"></td>
+					<td><input type="text" placeholder="b2,3" class="input-field"></td>
+				</tr>
+			</table>
+			<div class="matrix__label matrix__label_bottom">B</div>
+		</div>
+
+	</section>
 
 </main>
 </body>
