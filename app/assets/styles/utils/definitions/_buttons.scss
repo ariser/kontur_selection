@@ -1,15 +1,11 @@
 $buttons: (
 		default: (
-				bg-from: #ebebeb,
-				bg-to: #fefefe,
-				border-color: #d9d9d9,
-				border-dark-color: #b2b2b2
+				bg-from: $color-form-default-dark,
+				bg-to: $color-form-default-bright
 		),
-		bright: (
-				bg-from: #37910b,
-				bg-to: #4ba91d,
-				border-color: #5e9450,
-				border-dark-color: #457339,
+		success: (
+				bg-from: $color-form-success-dark,
+				bg-to: $color-form-success-bright,
 				text-color: $color-inverse
 		)
 );
