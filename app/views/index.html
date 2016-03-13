@@ -2,46 +2,102 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Title</title>
+	<title>SKB Kontur test task</title>
 	<link rel="stylesheet" href="assets/css/normalize.css">
 	<link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body>
-	<main>
-		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<main class="matrix-calc">
 
-		<button class="btn btn_default btn_right-arr"><i class="icon-plus"></i> Hello world</button>
+	<section class="matrix-calc__toolbar">
 
-		<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<form class="form matrix-toolbar">
 
-		<button class="btn btn_bright btn_right-arr btn_big">Hello world</button>
+			<div class="matrix-toolbar__section">
+				<div class="form-row">
+					<button type="button" class="btn btn_bright btn_big btn_right-arr">
+						Умножить матрицы
+					</button>
+				</div>
+			</div>
 
-		<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<div class="matrix-toolbar__section">
+				<div class="form-row">
+					<button type="button" class="btn btn_default btn_small">
+						<i class="icon-plus"></i>
+						Очистить матрицы
+					</button>
+				</div>
+				<div class="form-row">
+					<button type="button" class="btn btn_default btn_small">
+						<i class="icon-plus"></i>
+						Поменять матрицы местами
+					</button>
+				</div>
+			</div>
 
-		<button class="btn btn_bright btn_left-arr">Hello world</button>
+			<div class="matrix-toolbar__section">
+				<div class="form-row">
+					<div class="form-col">
+						<div class="radio radio_inline">
+							<input type="radio" name="matrix" id="matrix_a" checked>
+							<label for="matrix_a" class="radio__label">
+								Матрица A
+							</label>
+						</div>
+						<div class="radio radio_inline">
+							<input type="radio" name="matrix" id="matrix_b">
+							<label for="matrix_b" class="radio__label">
+								Матрица B
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-col">
+						<button type="button" class="btn btn_default btn_small">
+							<i class="icon-plus"></i>
+							Добавить
+						</button>
+					</div>
+					<div class="form-col">
+						<button type="button" class="btn btn_default btn_small">
+							<i class="icon-plus"></i>
+							Удалить
+						</button>
+					</div>
+					<div class="form-col">
+						<div class="static-ctrl">
+							строку
+						</div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-col">
+						<button type="button" class="btn btn_default btn_small">
+							<i class="icon-plus"></i>
+							Добавить
+						</button>
+					</div>
+					<div class="form-col">
+						<button type="button" class="btn btn_default btn_small">
+							<i class="icon-plus"></i>
+							Удалить
+						</button>
+					</div>
+					<div class="form-col">
+						<div class="static-ctrl">
+							столбец
+						</div>
+					</div>
+				</div>
+			</div>
 
-		<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		</form>
+	</section>
 
-		<a href class="btn btn_bright btn_left-arr">Hello world</a>
+	<section class="matrix-calc__canvas"></section>
 
-		<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-		<input type="text" class="input-field">
-
-		<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-		<div class="radio">
-			<input type="radio" name="nm" value="1" id="nm_1">
-			<label class="radio__label" for="nm_1">
-				Option 1
-			</label>
-		</div>
-		<div class="radio">
-			<input type="radio" name="nm" value="2" id="nm_2">
-			<label for="nm_2" class="radio__label">
-				Option 2
-			</label>
-		</div>
-	</main>
+</main>
 </body>
 </html>
