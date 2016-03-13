@@ -1,0 +1,23 @@
+@import compass/css3
+
++font-face("kontur-icons", font-files("icons.ttf"))
+
+[class^="icon-"],
+[class*=" icon-"]
+	display: inline-block
+
+
+	&:before
+		display: inline-block
+		width: 1em
+		line-height: 1em
+
+		font-family: 'kontur-icons'
+		font-style: normal
+		font-weight: normal
+		speak: none
+		text-align: center
+		text-decoration: none
+
+.icon-plus:before
+	content: ''
