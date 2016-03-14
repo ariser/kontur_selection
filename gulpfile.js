@@ -26,7 +26,8 @@ var config = {
 		interlaced : true
 	},
 	htmlmin : {
-		collapseWhitespace: true
+		collapseWhitespace: true,
+		conservativeCollapse: true
 	},
 	paths   : {
 		bower: 'bower_components',
