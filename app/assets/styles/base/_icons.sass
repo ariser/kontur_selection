@@ -1,6 +1,11 @@
 @import compass/css3
 
-+font-face("kontur-icons", font-files("icons.ttf", "icons.svg"))
+@font-face
+	font-family: 'kontur-icons'
+	src: font-url('icons.eot')
+	src: url('#{font-url('icons.eot', true)}?#iefix') format('embedded-opentype'), font-url('icons.woff') format('woff'), font-url('icons.ttf') format('truetype'), font-url('icons.svg') format('svg')
+	font-weight: normal
+	font-style: normal
 
 [class^="icon-"],
 [class*=" icon-"]
