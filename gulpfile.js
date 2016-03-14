@@ -32,6 +32,7 @@ var config = {
 		collapseWhitespace  : true,
 		conservativeCollapse: true
 	},
+	uglifyJS    : {},
 	paths       : {
 		bower: 'bower_components',
 		app  : {
@@ -140,9 +141,15 @@ gulp.task('scripts', function () {
 		.pipe(coffeeFilter.restore());
 });
 gulp.task('scripts:min', ['scripts'], function () {
+	// selectivizr contains a js hook that causes complete erasing its content by uglifier
+	// so we just don't uglify it
+	var selectivizrFilter = gulpFilter('!**/selectivizr.js');
+
 	return gulp.src([config.paths.build.js + '/**/*.js', '!' + config.paths.build.js + '/**/*.min.js'])
 		.pipe(plumber())
-		.pipe(uglifyJS())
+		.pipe(selectivizrFilter)
+		.pipe(uglifyJS(config.uglifyJS))
+		.pipe(selectivizrFilter.restore())
 		.pipe(gulp.dest(config.paths.build.js));
 });
 
@@ -183,7 +190,7 @@ gulp.task('views:production', function () {
 		.pipe(assets)
 
 		.pipe(jsFilter)
-		.pipe(uglifyJS())
+		.pipe(uglifyJS(config.uglifyJS))
 		.pipe(gulp.dest(config.paths.build.root))
 		.pipe(jsFilter.restore())
 
