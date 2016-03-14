@@ -9,23 +9,18 @@
 	&:disabled:hover
 		border-color: mix(black, white, 15%)
 
+	&.btn_left-arr,
+	&.btn_right-arr
+		&:before,
+		&:after
+			display: none !important
+
 @each $button, $prop in $buttons
 	$bg-from: map-get($prop, 'bg-from')
 	$bg-to: map-get($prop, 'bg-to')
 
 	.btn_#{$button}
-		$height: map-get(map-get($buttons_sizes, 'medium'), 'height')
-		$padding: map-get(map-get($buttons_sizes, 'medium'), 'padding')
-
 		+button-variant($bg-from, $bg-to)
-
-		&.btn_right-arr
-			+button-arrow-size(right, $height, $padding)
-			+button-arrow-variant(right, $bg-from, $bg-to)
-
-		&.btn_left-arr
-			+button-arrow-size(left, $height, $padding)
-			+button-arrow-variant(left, $bg-from, $bg-to)
 
 @each $size, $values in $buttons_sizes
 	$height: map-get($values, 'height')
@@ -35,8 +30,8 @@
 		height: $height
 		line-height: $height
 
-		&.btn_right-arr
-			+button-arrow-size(right, $height, $padding)
-
 		&.btn_left-arr
-			+button-arrow-size(left, $height, $padding)
+			padding-left: $padding
+
+		&.btn_right-arr
+			padding-right: $padding
