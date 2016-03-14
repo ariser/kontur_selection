@@ -1,3 +1,120 @@
+$border-color-mix-amount: 40%
+
+=button-arrow-variant($dir, $bg-from, $bg-to)
+	$border-color: mix(black, $bg-from, $border-color-mix-amount)
+	$border-color-rgba: mix($border-color, white, 50%)
+
+	border-#{$dir}-color: $bg-from
+
+	&:before,
+	&:after
+		content: ''
+
+		position: absolute
+
+		width: 0
+		height: 0
+		margin: 0 1px
+		border: solid transparent
+
+		@if ($dir == left)
+			right: 100%
+		@else
+			left: 100%
+
+		background: none !important
+
+	&:before
+		top: -1px
+
+		@if ($dir == left)
+			border-right-color: $border-color-rgba
+		@else
+			border-left-color: $border-color-rgba
+
+	&:after
+		top: 0
+
+		@if ($dir == left)
+			border-right-color: $bg-from
+		@else
+			border-left-color: $bg-from
+
+	&:hover
+		border-#{$dir}-color: hover($bg-from)
+
+		&:after
+			@if ($dir == left)
+				border-right-color: hover($bg-from)
+			@else
+				border-left-color: hover($bg-from)
+
+	&:focus
+		&:before
+			@if ($dir == left)
+				border-right-color: $color-accent
+			@else
+				border-left-color: $color-accent
+
+	&:active
+		border-#{$dir}-color: active($bg-from)
+
+		&:after
+			@if ($dir == left)
+				border-right-color: active($bg-from)
+			@else
+				border-left-color: active($bg-from)
+
+	&.disabled,
+	&:disabled
+		border-#{$dir}-color: $color-form-disabled
+
+		&:before
+			@if ($dir == left)
+				border-right-color: mix(black, white, 15%)
+			@else
+				border-left-color: mix(black, white, 15%)
+
+		&:after
+			@if ($dir == left)
+				border-right-color: $color-form-disabled
+			@else
+				border-left-color: $color-form-disabled
+
+=button-arrow-size($dir, $height, $padding: none)
+	$half-height: $height / 2
+
+	// arrow angles at the base are 30deg.
+	// Therefore arrow height is twice as big as its sides length.
+	// no magic numbers, simple math
+	$width: $half-height / 1.732050808 // sqrt(3)
+
+	@if ($padding != none)
+		padding-#{$dir}: $padding - $width / 2
+		margin-#{$dir}: $width / 2
+
+	&:before
+		border-width: $half-height 0
+		@if ($dir == left)
+			border-right-width: $width + 1
+		@else
+			border-left-width: $width + 1
+
+	&:after
+		border-width: $half-height - 1
+		@if ($dir == left)
+			border-right-width: $width
+		@else
+			border-left-width: $width
+
+	&:focus
+		&:before
+			top: -3px
+			border:
+				top-width: $half-height + 2
+				bottom-width: $half-height + 2
+			margin: 0 3px
+
 =button-variant($bg-from, $bg-to)
 	$border-color: mix(black, $bg-from, $border-color-mix-amount)
 
