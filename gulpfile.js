@@ -21,15 +21,18 @@ var gulp           = require('gulp'),
     imageMin       = require('gulp-imagemin');
 
 var config = {
-	imageMin: {
+	autoprefixer: {
+		browsers: ['> 1%', 'last 2 versions', 'Android > 4', 'Explorer >= 8', 'Firefox ESR', 'Opera 12.1']
+	},
+	imageMin    : {
 		progressive: true,
 		interlaced : true
 	},
-	htmlmin : {
-		collapseWhitespace: true,
+	htmlmin     : {
+		collapseWhitespace  : true,
 		conservativeCollapse: true
 	},
-	paths   : {
+	paths       : {
 		bower: 'bower_components',
 		app  : {
 			root   : 'app',
@@ -94,7 +97,7 @@ gulp.task('sass', function () {
 		sourcemap: true,
 		compass  : true
 	})
-		.pipe(prefix('> 1%', 'last 2 versions', 'Android > 4', 'Explorer >= 8', 'Firefox ESR', 'Opera 12.1'))
+		.pipe(prefix(config.autoprefixer))
 		.pipe(sourcemaps.write('.'))
 		.pipe(gulp.dest(config.paths.build.css));
 });
