@@ -3,20 +3,40 @@
 <head>
 	<meta charset="UTF-8">
 	<title>SKB Kontur test task</title>
+
+	<!-- build:css assets/css/main.css -->
 	<link rel="stylesheet" href="assets/css/normalize.css">
 	<link rel="stylesheet" href="assets/css/app.css">
+	<!-- endbuild -->
+
+	<!-- build:js assets/js/vendor.js -->
+	<script src="assets/js/vendor/underscore.js"></script>
+	<script src="assets/js/vendor/angular.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:js assets/js/matrix-calc.js -->
+	<script src="assets/js/matrix-calc/module.js"></script>
+	<script src="assets/js/matrix-calc/constants.js"></script>
+	<script src="assets/js/matrix-calc/calc.js"></script>
+	<script src="assets/js/matrix-calc/controller.js"></script>
+	<!-- endbuild -->
 </head>
 <body>
-<main class="matrix-calc">
+<form class="matrix-calc"
+      ng-app="matrixCalc"
+      ng-controller="matrixCalcCtrl"
+      ng-class="{'matrix-calc_editing': state.editing, 'matrix-calc_error': state.error}"
+      ng-submit="tryMultiply()"
+>
 
 	<section class="matrix-calc__toolbar">
 
-		<form class="form matrix-toolbar">
+		<div class="matrix-toolbar">
 
 			<div class="matrix-toolbar__section">
 				<div class="form-row">
 					<div class="form-col">
-						<button type="button" class="btn btn_success btn_big btn_right-arr">
+						<button type="submit" class="btn btn_success btn_big btn_right-arr">
 							Умножить матрицы
 						</button>
 					</div>
@@ -26,7 +46,7 @@
 			<div class="matrix-toolbar__section">
 				<div class="form-row">
 					<div class="form-col">
-						<button type="button" class="btn btn_default btn_small">
+						<button type="button" class="btn btn_default btn_small" ng-click="clearMatrices()">
 							<i class="icon-revert"></i>
 							Очистить матрицы
 						</button>
@@ -34,7 +54,7 @@
 				</div>
 				<div class="form-row">
 					<div class="form-col">
-						<button type="button" class="btn btn_default btn_small">
+						<button type="button" class="btn btn_default btn_small" ng-click="swapMatrices()">
 							<i class="icon-swap"></i>
 							Поменять матрицы местами
 						</button>
@@ -47,13 +67,13 @@
 				<div class="form-row">
 					<div class="form-col">
 						<div class="radio radio_inline">
-							<input type="radio" name="matrix" id="matrix_a" checked>
+							<input type="radio" id="matrix_a" ng-model="currentMatrix" ng-value="matrices.a">
 							<label for="matrix_a" class="radio__label">
 								Матрица A
 							</label>
 						</div>
 						<div class="radio radio_inline">
-							<input type="radio" name="matrix" id="matrix_b">
+							<input type="radio" id="matrix_b" ng-model="currentMatrix" ng-value="matrices.b">
 							<label for="matrix_b" class="radio__label">
 								Матрица B
 							</label>
@@ -63,13 +83,21 @@
 
 				<div class="form-row">
 					<div class="form-col">
-						<button type="button" class="btn btn_default btn_small">
+						<button type="button"
+						        class="btn btn_default btn_small"
+						        ng-click="addRow()"
+						        ng-disabled="currentMatrix.rows == maxDimension"
+						>
 							<i class="icon-plus"></i>
 							Добавить
 						</button>
 					</div>
 					<div class="form-col">
-						<button type="button" class="btn btn_default btn_small">
+						<button type="button"
+						        class="btn btn_default btn_small"
+						        ng-click="removeRow()"
+						        ng-disabled="currentMatrix.rows == minDimension"
+						>
 							<i class="icon-minus"></i>
 							Удалить
 						</button>
@@ -83,13 +111,21 @@
 
 				<div class="form-row">
 					<div class="form-col">
-						<button type="button" class="btn btn_default btn_small">
+						<button type="button"
+						        class="btn btn_default btn_small"
+						        ng-click="addColumn()"
+						        ng-disabled="currentMatrix.cols == maxDimension"
+						>
 							<i class="icon-plus"></i>
 							Добавить
 						</button>
 					</div>
 					<div class="form-col">
-						<button type="button" class="btn btn_default btn_small">
+						<button type="button"
+						        class="btn btn_default btn_small"
+						        ng-click="removeColumn()"
+						        ng-disabled="currentMatrix.cols == minDimension"
+						>
 							<i class="icon-minus"></i>
 							Удалить
 						</button>
@@ -103,59 +139,46 @@
 
 			</div>
 
-			<div class="matrix-toolbar__section">
+			<div class="matrix-toolbar__section" ng-if="state.error">
 				<div class="matrix-toolbar__msg matrix-toolbar__msg_error">
-					Такие матрицы нельзя перемножать, так как количество столбцов матрицы A не равно количеству строку матрицы B.
+					Такие матрицы нельзя перемножать, так как количество столбцов матрицы A не равно количеству строк матрицы B.
 				</div>
 			</div>
 
-		</form>
+		</div>
 	</section>
 
 	<section class="matrix-calc__canvas">
 
 		<div class="matrix">
 			<table class="matrix__grid">
-				<tr>
-					<td><input type="text" disabled placeholder="c1,1" class="input-field"></td>
-					<td><input type="text" disabled placeholder="c1,2" class="input-field"></td>
-					<td><input type="text" disabled placeholder="c1,3" class="input-field"></td>
-				</tr>
-				<tr>
-					<td><input type="text" disabled placeholder="c2,1" class="input-field"></td>
-					<td><input type="text" disabled placeholder="c2,2" class="input-field"></td>
-					<td><input type="text" disabled placeholder="c2,3" class="input-field"></td>
-				</tr>
-				<tr>
-					<td><input type="text" disabled placeholder="c3,1" class="input-field"></td>
-					<td><input type="text" disabled placeholder="c3,2" class="input-field"></td>
-					<td><input type="text" disabled placeholder="c3,3" class="input-field"></td>
-				</tr>
-				<tr>
-					<td><input type="text" disabled placeholder="c4,1" class="input-field"></td>
-					<td><input type="text" disabled placeholder="c4,2" class="input-field"></td>
-					<td><input type="text" disabled placeholder="c4,3" class="input-field"></td>
+				<tr ng-repeat="row in range(matrices.a.rows)">
+					<td ng-repeat="col in range(matrices.b.cols)">
+						<input type="number"
+						       disabled
+						       placeholder="c{{ row + 1 }},{{ col + 1 }}"
+						       class="input-field"
+						       ng-model="matrices.c.values[row][col]"
+						>
+					</td>
 				</tr>
 			</table>
 		</div>
 
 		<div class="matrix">
 			<table class="matrix__grid">
-				<tr>
-					<td><input type="text" placeholder="a1,1" class="input-field"></td>
-					<td><input type="text" placeholder="a1,2" class="input-field"></td>
-				</tr>
-				<tr>
-					<td><input type="text" placeholder="a2,1" class="input-field"></td>
-					<td><input type="text" placeholder="a2,2" class="input-field"></td>
-				</tr>
-				<tr>
-					<td><input type="text" placeholder="a3,1" class="input-field"></td>
-					<td><input type="text" placeholder="a3,2" class="input-field"></td>
-				</tr>
-				<tr>
-					<td><input type="text" placeholder="a4,1" class="input-field"></td>
-					<td><input type="text" placeholder="a4,2" class="input-field"></td>
+				<tr ng-repeat="row in range(matrices.a.rows)">
+					<td ng-repeat="col in range(matrices.a.cols)">
+						<input type="number"
+						       min="{{ minCellValue }}"
+						       max="{{ maxCellValue }}"
+						       placeholder="a{{ row + 1 }},{{ col + 1 }}"
+						       class="input-field"
+						       ng-focus="state.editing = true"
+						       ng-blur="state.editing = false"
+						       ng-model="matrices.a.values[row][col]"
+						>
+					</td>
 				</tr>
 			</table>
 			<div class="matrix__label matrix__label_right">A</div>
@@ -163,15 +186,18 @@
 
 		<div class="matrix matrix_below">
 			<table class="matrix__grid">
-				<tr>
-					<td><input type="text" placeholder="b1,1" class="input-field"></td>
-					<td><input type="text" placeholder="b1,2" class="input-field"></td>
-					<td><input type="text" placeholder="b1,3" class="input-field"></td>
-				</tr>
-				<tr>
-					<td><input type="text" placeholder="b2,1" class="input-field"></td>
-					<td><input type="text" placeholder="b2,2" class="input-field"></td>
-					<td><input type="text" placeholder="b2,3" class="input-field"></td>
+				<tr ng-repeat="row in range(matrices.b.rows)">
+					<td ng-repeat="col in range(matrices.b.cols)">
+						<input type="number"
+						       min="{{ minCellValue }}"
+						       max="{{ maxCellValue }}"
+						       placeholder="b{{ row + 1 }},{{ col + 1 }}"
+						       class="input-field"
+						       ng-focus="state.editing = true"
+						       ng-blur="state.editing = false"
+						       ng-model="matrices.b.values[row][col]"
+						>
+					</td>
 				</tr>
 			</table>
 			<div class="matrix__label matrix__label_bottom">B</div>
@@ -179,6 +205,6 @@
 
 	</section>
 
-</main>
+</form>
 </body>
 </html>
