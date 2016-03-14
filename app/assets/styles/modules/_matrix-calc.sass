@@ -12,6 +12,7 @@
 	margin-bottom: -9970px
 
 	background: #bcbcbc
+	transition: background-color .5s
 
 	.matrix-calc_editing &
 		background: $color-info-bg
@@ -22,7 +23,6 @@
 .matrix-calc__canvas
 	overflow: hidden
 	padding: 15px 35px
-
 
 .matrix-toolbar
 
@@ -72,11 +72,17 @@
 		border-collapse: separate
 		border-spacing: $padding
 
-		input[type=text]
+		.input-field
+			-moz-appearance: textfield
 			width: 38px
 			height: 38px
-			padding: 12px 5px 0
+			padding: 14px 5px 0
 			margin: 1px
+
+			&::-webkit-outer-spin-button,
+			&::-webkit-inner-spin-button
+				-webkit-appearance: none
+				margin: 0
 
 	.matrix__label
 		position: absolute
