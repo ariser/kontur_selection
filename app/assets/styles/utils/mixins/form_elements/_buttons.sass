@@ -22,7 +22,9 @@ $border-color-mix-amount: 40%
 	&:before
 		top: 0
 
-		background-image: linear-gradient(to top, $bg-from -100%, $bg-to 100%)
+		background:
+			color: $bg-from
+			image: linear-gradient(to top, $bg-from -100%, $bg-to 100%)
 
 		@if ($dir == left)
 			transform: skewX(-30deg)
@@ -32,7 +34,9 @@ $border-color-mix-amount: 40%
 	&:after
 		bottom: 0
 
-		background-image: linear-gradient(to top, $bg-from 0%, $bg-to 200%)
+		background:
+			color: $bg-from
+			image: linear-gradient(to top, $bg-from 0%, $bg-to 200%)
 
 		@if ($dir == left)
 			transform: skewX(30deg)
@@ -41,10 +45,14 @@ $border-color-mix-amount: 40%
 
 	&:hover
 		&:before
-			background-image: linear-gradient(to top, hover($bg-from) -100%, hover($bg-to) 100%)
+			background:
+				color: hover($bg-from)
+				image: linear-gradient(to top, hover($bg-from) -100%, hover($bg-to) 100%)
 
 		&:after
-			background-image: linear-gradient(to top, hover($bg-from) 0%, hover($bg-to) 200%)
+			background:
+				color: hover($bg-from)
+				image: linear-gradient(to top, hover($bg-from) 0%, hover($bg-to) 200%)
 
 	&:focus
 		&:before
@@ -107,12 +115,16 @@ $border-color-mix-amount: 40%
 =button-variant($bg-from, $bg-to, $text: $color-text)
 	$border-color: mix(black, $bg-from, $border-color-mix-amount)
 
-	background: white linear-gradient(to top, $bg-from 0%, $bg-to 100%)
+	background:
+		color: $bg-from
+		image: linear-gradient(to top, $bg-from 0%, $bg-to 100%)
 	box-shadow: 0 0 0 1px rgba($border-color, .5), 0 1px rgba($border-color, .9)
 	color: $text
 
 	&:hover
-		background-image: linear-gradient(to top, hover($bg-from) 0%, hover($bg-to) 100%)
+		background:
+			color: hover($bg-from)
+			image: linear-gradient(to top, hover($bg-from) 0%, hover($bg-to) 100%)
 
 	&:active
 		background: active($bg-from)

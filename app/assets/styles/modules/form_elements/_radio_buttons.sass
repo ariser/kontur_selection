@@ -1,5 +1,7 @@
 %radio-hover
-	background-image: linear-gradient(to top, hover($color-form-default-dark) 0%, hover($color-form-default-bright) 100%)
+	background:
+		color: hover($color-form-default-dark)
+		image: linear-gradient(to top, hover($color-form-default-dark) 0%, hover($color-form-default-bright) 100%)
 
 %radio-active
 	background: active($color-form-default-dark)
@@ -10,7 +12,6 @@
 	$shadow-border-width: 1px
 	$checked-dot-size: 8px
 	$padding-left: $radio-size + 7px
-	$vertical-align-shift: 1px
 
 	position: relative
 
@@ -34,9 +35,11 @@
 
 			width: $radio-size - $shadow-border-width * 2
 			height: $radio-size - $shadow-border-width * 2
-			margin: (-($radio-size - $shadow-border-width * 2) / 2 - $vertical-align-shift) $shadow-border-width $shadow-border-width
+			margin: (-($radio-size - $shadow-border-width * 2) / 2) $shadow-border-width $shadow-border-width
 
-			background: white linear-gradient(to top, $color-form-default-dark 0%, $color-form-default-bright 100%)
+			background:
+				color: $color-form-default-dark
+				image: linear-gradient(to top, $color-form-default-dark 0%, $color-form-default-bright 100%)
 			border-radius: ($radio-size - $shadow-border-width * 2) / 2
 			box-shadow: 0 0 0 1px rgba(0, 0, 0, .15), 0 1px rgba(0, 0, 0, .3)
 
@@ -63,7 +66,7 @@
 			left: 0
 			top: 50%
 			margin:
-				top: -$checked-dot-size / 2 - $vertical-align-shift
+				top: -$checked-dot-size / 2
 				left: ($radio-size - $checked-dot-size) / 2
 
 			display: block

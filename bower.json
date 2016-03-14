@@ -2,7 +2,15 @@
   "name": "kontur_selection",
   "dependencies": {
     "underscore": "^1.8.3",
-    "angular": "^1.5.0"
+    "angular": "~1.2.x",
+    "jquery": "~1.x",
+    "selectivizr": "^1.0.2",
+    "html5shiv": "^3.7.3"
   },
-  "private": true
+  "private": true,
+  "overrides": {
+    "selectivizr": {
+      "main": "selectivizr.js"
+    }
+  }
 }

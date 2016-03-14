@@ -1,0 +1,22 @@
+.btn
+	&:focus
+		outline: 2px solid $color-accent
+
+	&.disabled,
+	&:disabled,
+	&.disabled:hover,
+	&:disabled:hover
+		outline: 1px solid mix(black, white, 15%)
+
+	&.btn_left-arr,
+	&.btn_right-arr
+		&:before,
+		&:after
+			display: none !important
+
+@each $button, $prop in $buttons
+	$bg-from: map-get($prop, 'bg-from')
+	$bg-to: map-get($prop, 'bg-to')
+
+	.btn_#{$button}
+		+button-variant($bg-from, $bg-to)

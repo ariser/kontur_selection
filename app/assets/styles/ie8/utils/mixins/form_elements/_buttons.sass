@@ -1,0 +1,8 @@
+=button-variant($bg-from, $bg-to)
+	$border-color: mix(black, $bg-from, $border-color-mix-amount)
+
+	border: 1px solid
+		color: mix($border-color, white, 50%) mix($border-color, white, 50%) mix($border-color, white, 90%)
+
+	&:active
+		border-color: mix($border-color, white, 90%) mix($border-color, white, 50%) mix($border-color, white, 50%)

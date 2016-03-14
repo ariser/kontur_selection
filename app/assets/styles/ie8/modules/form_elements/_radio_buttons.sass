@@ -1,0 +1,22 @@
+.radio
+	$radio-size: 16px
+
+	.radio__label
+		&:before
+			width: $radio-size
+			height: $radio-size
+			margin: (-$radio-size / 2) 0 0
+
+			border: 1px solid
+				color: mix(black, white, 15%) mix(black, white, 15%) mix(black, white, 30%)
+
+	input[type='radio']
+		&:active + .radio__label:before
+			border-color: mix(black, white, 30%) mix(black, white, 15%) mix(black, white, 15%)
+
+		&:focus + .radio__label:before
+			outline: 2px solid $color-accent
+
+		&:disabled + .radio__label:before
+			background-color: $color-form-disabled
+			border-color: mix(black, white, 15%)
