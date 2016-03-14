@@ -3,8 +3,8 @@
 angular.module('matrixCalc')
 
 .controller('matrixCalcCtrl', [
-  '$scope', 'matrixCalc', 'minDimension', 'maxDimension', 'minCellValue', 'maxCellValue',
-  ($scope, matrixCalc, minDimension, maxDimension, minCellValue, maxCellValue) ->
+  '$scope', 'matrixCalc', 'minDimension', 'maxDimension', 'minCellValue', 'maxCellValue', 'defaultValueForEmptyCell',
+  ($scope, matrixCalc, minDimension, maxDimension, minCellValue, maxCellValue, defaultValueForEmptyCell) ->
     clearMatrix = (matrix) ->
       for row in matrix.values
         for col in [0..matrix.cols - 1]
@@ -28,6 +28,13 @@ angular.module('matrixCalc')
     updateAllMatrices = -> updateMatrix matrix for name, matrix of $scope.matrices
 
     updateCurrentMatrix = -> updateMatrix($scope.currentMatrix)
+
+
+    fillEmptyCells = (matrix) ->
+      for row in matrix.values
+        for col in [0..matrix.cols - 1]
+          if not angular.isDefined(row[col])
+            row[col] = defaultValueForEmptyCell
 
 
     resetErrorState = ->
@@ -68,6 +75,9 @@ angular.module('matrixCalc')
       resetErrorState()
 
       if $scope.matrices.a.cols == $scope.matrices.b.rows
+        fillEmptyCells($scope.matrices.a)
+        fillEmptyCells($scope.matrices.b)
+
         $scope.matrices.c.values = matrixCalc.multiply($scope.matrices.a.values, $scope.matrices.b.values)
       else
         $scope.state.error = true
