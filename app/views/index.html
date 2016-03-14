@@ -4,11 +4,13 @@
 	<meta charset="UTF-8">
 	<title>SKB Kontur test task</title>
 
+	<!-- build:js assets/js/ie8.js -->
 	<!--[if lt IE 9]>
 	<script src="assets/js/vendor/html5shiv.js"></script>
 	<script src="assets/js/vendor/jquery.js"></script>
 	<script src="assets/js/vendor/selectivizr.js"></script>
 	<![endif]-->
+	<!-- endbuild -->
 
 	<!-- build:css assets/css/main.css -->
 	<link rel="stylesheet" href="assets/css/normalize.css">
@@ -20,6 +22,7 @@
 	<![endif]-->
 
 	<!-- build:js assets/js/vendor.js -->
+	<script src="assets/js/vendor/modernizr.js"></script>
 	<script src="assets/js/vendor/underscore.js"></script>
 	<script src="assets/js/vendor/angular.js"></script>
 	<!-- endbuild -->
@@ -62,11 +65,11 @@
 						</button>
 					</div>
 				</div>
-				<div class="form-row">
+				<div class="form-row matrices-swapper">
 					<div class="form-col">
 						<button type="button" class="btn btn_default btn_small" ng-click="swapMatrices()">
 							<i class="icon-swap"></i>
-							Поменять матрицы местами
+							Поменять матрицы местами <!-- Зачем?? -->
 						</button>
 					</div>
 				</div>
@@ -151,7 +154,8 @@
 
 			<div class="matrix-toolbar__section" ng-if="state.error">
 				<div class="matrix-toolbar__msg matrix-toolbar__msg_error">
-					Такие матрицы нельзя перемножать, так&nbsp;как количество столбцов матрицы&nbsp;A не&nbsp;равно количеству строк матрицы&nbsp;B.
+					Такие матрицы нельзя перемножать, так&nbsp;как количество столбцов матрицы&nbsp;A не&nbsp;равно количеству
+					строк матрицы&nbsp;B.
 				</div>
 			</div>
 
@@ -160,57 +164,79 @@
 
 	<section class="matrix-calc__canvas">
 
-		<div class="matrix">
-			<table class="matrix__grid">
-				<tr ng-repeat="row in range(matrices.a.rows)">
-					<td ng-repeat="col in range(matrices.b.cols)">
-						<input type="number"
-						       disabled
-						       placeholder="c{{ row + 1 }},{{ col + 1 }}"
-						       class="input-field"
-						       ng-model="matrices.c.values[row][col]"
-						>
-					</td>
-				</tr>
-			</table>
-		</div>
+		<div class="matrix-canvas" ng-class="{'matrix-canvas_reverse': state.swapped}">
 
-		<div class="matrix">
-			<table class="matrix__grid">
-				<tr ng-repeat="row in range(matrices.a.rows)">
-					<td ng-repeat="col in range(matrices.a.cols)">
-						<input type="number"
-						       min="{{ minCellValue }}"
-						       max="{{ maxCellValue }}"
-						       placeholder="a{{ row + 1 }},{{ col + 1 }}"
-						       class="input-field"
-						       ng-focus="state.editing = true"
-						       ng-blur="state.editing = false"
-						       ng-model="matrices.a.values[row][col]"
-						>
-					</td>
-				</tr>
-			</table>
-			<div class="matrix__label matrix__label_right">A</div>
-		</div>
+			<div class="matrix-canvas__row">
 
-		<div class="matrix matrix_below">
-			<table class="matrix__grid">
-				<tr ng-repeat="row in range(matrices.b.rows)">
-					<td ng-repeat="col in range(matrices.b.cols)">
-						<input type="number"
-						       min="{{ minCellValue }}"
-						       max="{{ maxCellValue }}"
-						       placeholder="b{{ row + 1 }},{{ col + 1 }}"
-						       class="input-field"
-						       ng-focus="state.editing = true"
-						       ng-blur="state.editing = false"
-						       ng-model="matrices.b.values[row][col]"
-						>
-					</td>
-				</tr>
-			</table>
-			<div class="matrix__label matrix__label_bottom">B</div>
+				<div class="matrix">
+					<table class="matrix__grid">
+						<tr ng-repeat="row in range(matrices.a.rows)">
+							<td ng-repeat="col in range(matrices.b.cols)">
+								<input type="number"
+								       disabled
+								       placeholder="c{{ row + 1 }},{{ col + 1 }}"
+								       class="input-field"
+								       ng-model="matrices.c.values[row][col]"
+								>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<div class="matrix matrix-a">
+					<table class="matrix__grid">
+						<tr ng-repeat="row in range(matrices.a.rows)">
+							<td ng-repeat="col in range(matrices.a.cols)">
+								<input type="number"
+								       min="{{ minCellValue }}"
+								       max="{{ maxCellValue }}"
+								       placeholder="a{{ row + 1 }},{{ col + 1 }}"
+								       class="input-field"
+								       ng-focus="state.editing = true"
+								       ng-blur="state.editing = false"
+								       ng-model="matrices.a.values[row][col]"
+								>
+							</td>
+						</tr>
+					</table>
+					<div class="matrix__label matrix-a__label">A</div>
+				</div>
+
+			</div>
+
+			<div class="matrix-canvas__row">
+
+				<div class="matrix matrix_below matrix-b">
+					<table class="matrix__grid">
+						<tr ng-repeat="row in range(matrices.b.rows)">
+							<td ng-repeat="col in range(matrices.b.cols)">
+								<input type="number"
+								       min="{{ minCellValue }}"
+								       max="{{ maxCellValue }}"
+								       placeholder="b{{ row + 1 }},{{ col + 1 }}"
+								       class="input-field"
+								       ng-focus="state.editing = true"
+								       ng-blur="state.editing = false"
+								       ng-model="matrices.b.values[row][col]"
+								>
+							</td>
+						</tr>
+					</table>
+					<div class="matrix__label matrix-b__label">B</div>
+				</div>
+
+				<div ng-if="state.swapped" class="matrix matrix-placeholder">
+					<table class="matrix__grid">
+						<tr>
+							<td ng-repeat="col in range(matrices.a.cols)">
+								<input type="number" class="input-field" disabled>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+			</div>
+
 		</div>
 
 	</section>

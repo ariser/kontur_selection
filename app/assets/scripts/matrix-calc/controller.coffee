@@ -46,10 +46,7 @@ angular.module('matrixCalc')
       $scope.matrices.c.values = []
 
     $scope.swapMatrices = ->
-      [$scope.matrices.a, $scope.matrices.b] = [$scope.matrices.b, $scope.matrices.a]
-      # toggle currentMatrix to make sure it remains the same despite the swap
-      $scope.currentMatrix = if angular.equals($scope.currentMatrix, $scope.matrices.a) then $scope.matrices.b else $scope.matrices.a
-      resetErrorState()
+      $scope.state.swapped = not $scope.state.swapped
 
     $scope.addRow = ->
       $scope.currentMatrix.rows++ unless $scope.currentMatrix.rows == maxDimension
@@ -88,6 +85,7 @@ angular.module('matrixCalc')
       $scope.state =
         editing: false
         error  : false
+        swapped: false
 
       $scope.matrices =
         a:

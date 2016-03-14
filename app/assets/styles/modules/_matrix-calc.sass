@@ -24,6 +24,7 @@
 	overflow: auto
 	padding: 15px 35px
 
+
 .matrix-toolbar
 
 .matrix-toolbar__section
@@ -36,6 +37,7 @@
 
 	&_error
 		@extend .text-error
+
 
 .matrix
 	$border-width: 2px
@@ -103,3 +105,44 @@
 			left: 50%
 			top: 100%
 			margin: 20px 0 0 -.5em
+
+.matrix-a
+	&__label
+		@extend .matrix__label_right
+
+.matrix-b
+	&__label
+		@extend .matrix__label_bottom
+
+
+.matrix-canvas
+	display: flex
+	flex-direction: column
+	justify-content: flex-start
+
+.matrix-canvas__row
+	display: flex
+	flex-direction: row
+	justify-content: flex-start
+
+.matrix-canvas_reverse
+	flex-direction: column-reverse
+	justify-content: flex-end
+
+	.matrix-canvas__row
+		flex-direction: row-reverse
+		justify-content: flex-end
+
+	.matrix-a__label
+		@extend .matrix__label_bottom
+
+	.matrix-b__label
+		@extend .matrix__label_right
+
+
+.matrix-placeholder
+	visibility: hidden
+
+.no-flexbox.no-flexboxlegacy
+	.matrices-swapper
+		display: none
