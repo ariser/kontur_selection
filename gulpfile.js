@@ -141,7 +141,7 @@ gulp.task('scripts', function () {
 		.pipe(coffeeFilter.restore());
 });
 gulp.task('scripts:min', ['scripts'], function () {
-	// selectivizr contains a js hook that causes complete erasing its content by uglifier
+	// selectivizr contains a js hook that causes a complete erasing of its content by uglifier
 	// so we just don't uglify it
 	var selectivizrFilter = gulpFilter('!**/selectivizr.js');
 
