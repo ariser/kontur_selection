@@ -5,7 +5,8 @@
     "angular": "~1.2.x",
     "jquery": "~1.x",
     "selectivizr": "^1.0.2",
-    "html5shiv": "^3.7.3"
+    "html5shiv": "^3.7.3",
+    "normalize-css": "^4.0.0"
   },
   "private": true,
   "overrides": {
